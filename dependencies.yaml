@@ -151,15 +151,16 @@ dependencies:
     common:
       - output_types: [conda, requirements, pyproject]
         packages:
-          - scikit-build>=0.13.1
           - cython>=3.0.0
           - &treelite treelite==3.9.1
           - pylibraft==24.2.*
           - rmm==24.2.*
-      - output_types: pyproject
+      - output_types: conda
         packages:
-          - wheel
-          - setuptools
+          - scikit-build-core>=0.7.0
+      - output_types: [requirements, pyproject]
+        packages:
+          - scikit-build-core[pyproject]>=0.7.0
           - &treelite_runtime treelite_runtime==3.9.1
     specific:
       - output_types: [conda, requirements, pyproject]
