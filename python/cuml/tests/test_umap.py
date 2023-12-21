@@ -362,10 +362,10 @@ def test_umap_fit_transform_against_fit_and_transform():
     )
 
     """
-    First test the default option does not hash the input
+    First test the default option explicitly enabling feature hashes the input
     """
 
-    cuml_model = cuUMAP()
+    cuml_model = cuUMAP(hash_input=True)
 
     ft_embedding = cuml_model.fit_transform(data, convert_dtype=True)
     fit_embedding_same_input = cuml_model.transform(data, convert_dtype=True)
@@ -373,10 +373,10 @@ def test_umap_fit_transform_against_fit_and_transform():
     assert joblib.hash(ft_embedding) != joblib.hash(fit_embedding_same_input)
 
     """
-    Next, test explicitly enabling feature hashes the input
+    Next, test not hashing the input
     """
 
-    cuml_model = cuUMAP(hash_input=True)
+    cuml_model = cuUMAP(hash_input=False)
 
     ft_embedding = cuml_model.fit_transform(data, convert_dtype=True)
     fit_embedding_same_input = cuml_model.transform(data, convert_dtype=True)

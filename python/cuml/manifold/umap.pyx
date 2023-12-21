@@ -225,15 +225,16 @@ class UMAP(UniversalBase,
         More specific parameters controlling the embedding. If None these
         values are set automatically as determined by ``min_dist`` and
         ``spread``.
-    hash_input: bool, optional (default = False)
+    hash_input: bool, optional (default = True)
         UMAP can hash the training input so that exact embeddings
         are returned when transform is called on the same data upon
         which the model was trained. This enables consistent
         behavior between calling ``model.fit_transform(X)`` and
         calling ``model.fit(X).transform(X)``. Not that the CPU-based
         UMAP reference implementation does this by default. This
-        feature is made optional in the GPU version due to the
-        significant overhead in copying memory to the host for
+        feature has been made default to follow sklearn/reproducibility issues,
+        but if not intending to use .transform() is optional in the GPU version
+        due to the significant overhead in copying memory to the host for
         computing the hash.
     precomputed_knn : array / sparse array / tuple, optional (device or host)
         Either one of a tuple (indices, distances) of
@@ -342,7 +343,7 @@ class UMAP(UniversalBase,
                  target_n_neighbors=-1,
                  target_weight=0.5,
                  target_metric="categorical",
-                 hash_input=False,
+                 hash_input=True,
                  random_state=None,
                  precomputed_knn=None,
                  callback=None,
